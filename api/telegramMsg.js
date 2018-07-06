@@ -18,7 +18,7 @@ module.exports.sendMsg = (req, res) => {
     //кодируем результат в текст, понятный адресной строке
     msg = encodeURI(msg);
     let successnum = 0;
-    if(JSON.stringify(req.body.name) === "\"kibana\"")
+    if(JSON.stringify(req.body.name) === "\"kibana777\"")
     {
         //делаем запрос
         http.post(`https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chats[1]}&parse_mode=html&text=${msg}`, function (error, response, body) {
