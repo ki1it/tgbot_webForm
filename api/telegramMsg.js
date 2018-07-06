@@ -14,14 +14,26 @@ module.exports.sendMsg = (req, res) => {
     fields.forEach(field => {
         msg += field + '\n'
     });
-    msg += '<b>Host:</b> ' + req.host+'\n';
+    msg += '<b>Host:</b> ' + req.header.referrer+'\n';
     //кодируем результат в текст, понятный адресной строке
     msg = encodeURI(msg);
     let successnum = 0;
-
-    for(var i = 0; i < config.telegram.chats.length; i++) {
+    if(JSON.stringify(req.body.name) === "\"kibana\"")
+    {
         //делаем запрос
-        http.post(`https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chats[i]}&parse_mode=html&text=${msg}`, function (error, response, body) {
+        http.post(`https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chats[1]}&parse_mode=html&text=${msg}`, function (error, response, body) {
+            //не забываем обработать ответ
+            console.log('error:', error);
+            console.log('statusCode:', response && response.statusCode);
+            console.log('body:', body);
+
+
+        });
+    }
+    else
+    {
+        //делаем запрос
+        http.post(`https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chats[0]}&parse_mode=html&text=${msg}`, function (error, response, body) {
             //не забываем обработать ответ
             console.log('error:', error);
             console.log('statusCode:', response && response.statusCode);
